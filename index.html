@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+</head>
+<body>
+    <div id="app">
+        {{ message }}
+        <br>
+
+        <button @click="changing">
+            CLIQUE negrillons ! 
+        </button>
+        <input type="checkbox"  value="cliquuuuue"  v-model="check">
+
+        <p v-if="check">Win !</p>
+        <P v-else>Fail ! </P>
+        <input type="text" v-model="direction">
+        <br>
+
+        <i class="fa " :class="check ? 'fa-angle-down' : 'fa-angle-up'"></i>
+        <i class="fa" :class="!check ? 'fa-angle-up' : fa-angle-down"></i>
+        <i class="fa" :class="{'fa-angle-down' : direction==0,
+                                'fa-angle-up' : direction==1,
+                                'fa-angle-left' : direction==2,
+                                'fa-angle-right' : direction==3
+                             }"></i>
+        
+        <br>
+        <br>
+        <button @click="add">
+            Créer un nouveau conpteurs
+        </button>
+        <br>
+        <p>compteurs : {{seconds}}</p>
+    
+        <div style="display: flex;">
+            <span v-for="(index, i) in list"
+            >
+            |{{ list[i] }}|
+            </span>
+        </div>
+    </div>
+    <hr>
+    <div id="app2">
+        <ul>
+            <li v-for="product in products" :key="product.id" style="display:flex;">
+            
+            <input type="text" v-model="product.quantity">
+            <p>{{product.name}}</p>
+            <p v-if="product.quantity===0">Out of stock</p>
+            <button @click="product.quantity++">Add</button>
+            <button @click="product.quantity--">remove</button>
+            </li>
+
+            <div>
+                <p>Nombre total </p>
+                <p>{{totalProducts}}</p>
+            </div>
+        </ul>
+        <h2>AVEC COMPNENTS</h2>
+      <ul>
+          <li v-for="product, index in products" :key="product.id">
+                <rowproduct :quantity="product.quantity" :name="product.name" @plusone="product.quantity++" @moinone="product.quantity--" @del="del(index)">
+                </rowproduct>
+          </li>
+      </ul>
+        
+    </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
